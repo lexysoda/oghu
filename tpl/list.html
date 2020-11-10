@@ -1,0 +1,32 @@
+{{ define "list" }}
+<!doctype html>
+<html>
+  {{ template "head" .Site }}
+  <body>
+    {{ template "header" .Site }}
+    <div class="content">
+      <h1>{{ .Title }}</h1>
+      <ul>
+        {{ with .Entries }}
+          {{ range . }}
+          <li>
+            <date>{{ .Date.Format "02.01.2006" }}</date>
+            <a href="/{{ .Category }}/{{ .Title | urlify }}">
+              {{ .Title }}
+            </a>
+          </li>
+          {{ end }}
+        {{ else }}
+          {{ range $tag, $_ := .Tags }}
+          <li>
+            <a href="/tags/{{ $tag }}">
+              {{ $tag }}
+            </a>
+          </li>
+          {{ end }}
+        {{ end }}
+      </ul>
+    </div>
+  </body>
+</html>
+{{ end }}
