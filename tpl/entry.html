@@ -1,9 +1,9 @@
 {{ define "entry" }}
 <!doctype html>
 <html>
-  {{ template "head" .Site }}
+  {{ template "head" .Meta }}
   <body>
-    {{ template "header" .Site }}
+    {{ template "header" .Meta }}
     {{ with .Entry }}
       <h1>{{ .Title }}</h1>
       <div class="subtitle">

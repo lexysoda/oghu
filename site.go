@@ -10,14 +10,12 @@ type Site struct {
 	Entries []*Entry
 	Tags    map[string][]*Entry
 	C       *Config
-	Title   string
 }
 
 func NewSite(c *Config) *Site {
 	return &Site{
-		Tags:  map[string][]*Entry{},
-		C:     c,
-		Title: "kek",
+		Tags: map[string][]*Entry{},
+		C:    c,
 	}
 }
 
@@ -59,7 +57,7 @@ func (s *Site) ParseSite() error {
 
 func (s *Site) RenderSite() error {
 	data := map[string]interface{}{
-		"Site": s,
+		"Meta": s.C.Meta,
 	}
 	for _, e := range s.Entries {
 		data["Entry"] = e

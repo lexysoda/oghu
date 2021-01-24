@@ -5,7 +5,6 @@ But it probably only took a bit longer than reading through the humongous codeba
 and maybe I learned something along the way :shrug:.
 
 ## todo
-* [ ] read config from yaml
 * [ ] cleanup the rendering process, especially the passed template data
 * [ ] use `block` and define main template
 * [ ] cleanup the parser, make configurable
