@@ -5,4 +5,4 @@ run: build
 
 .PHONY: build
 build:
-	go build
+	go build -o oghu cmd/oghu/*.go
