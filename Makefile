@@ -6,3 +6,7 @@ run: build
 .PHONY: build
 build:
 	go build -o oghu cmd/oghu/*.go
+
+.PHONY: test
+test:
+	go test .

@@ -3,10 +3,10 @@ package oghu
 import (
 	"bytes"
 	"html/template"
-	"io/ioutil"
-	"os"
 	"path/filepath"
 	"time"
+
+	"github.com/lexysoda/oghu/parser"
 )
 
 type Entry struct {
@@ -18,14 +18,9 @@ type Entry struct {
 	Path     string
 }
 
-func GenerateEntry(path, relPath string, c *Config) (*Entry, error) {
-	source, err := ioutil.ReadFile(path)
-	if err != nil {
-		return nil, err
-	}
-
+func ParseEntry(b []byte, path string, p parser.Parser) (*Entry, error) {
 	var buf bytes.Buffer
-	meta, err := c.Parser.Parse(source, &buf)
+	meta, err := p.Parse(b, &buf)
 	if err != nil {
 		return nil, err
 	}
@@ -34,7 +29,7 @@ func GenerateEntry(path, relPath string, c *Config) (*Entry, error) {
 		return nil, err
 	}
 
-	category := filepath.Dir(relPath)
+	category := filepath.Dir(path)
 	return &Entry{
 		Title:    meta.Title,
 		Date:     meta.Date,
@@ -43,22 +38,4 @@ func GenerateEntry(path, relPath string, c *Config) (*Entry, error) {
 		Path:     filepath.Join(category, Urlify(meta.Title)),
 		Content:  template.HTML(buf.String()),
 	}, nil
-}
-
-func (e *Entry) Render(c *Config) error {
-	dirPath := filepath.Join(c.PublicDir, e.Category, e.Title)
-	filePath := filepath.Join(dirPath, "index.html")
-
-	if err := os.MkdirAll(dirPath, os.ModePerm); err != nil {
-		return err
-	}
-	f, err := os.Create(filePath)
-	if err != nil {
-		return err
-	}
-	defer f.Close()
-	if err := c.Tpl.Lookup("entry").Execute(f, e); err != nil {
-		return err
-	}
-	return nil
 }

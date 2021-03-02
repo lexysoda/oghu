@@ -36,7 +36,11 @@ func (s *Site) ParseSite() error {
 			return os.Link(path, pubPath)
 		}
 
-		entry, err := GenerateEntry(path, relPath, s.C)
+		bytes, err := os.ReadFile(path)
+		if err != nil {
+			return err
+		}
+		entry, err := ParseEntry(bytes, relPath, s.C.Parser)
 		if err != nil {
 			return err
 		}
