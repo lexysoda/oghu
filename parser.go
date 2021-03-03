@@ -1,4 +1,4 @@
-package parser
+package oghu
 
 import (
 	"fmt"
@@ -20,16 +20,12 @@ type Meta struct {
 	Tags  []string
 }
 
-type parser struct {
+type Parser struct {
 	goldmark.Markdown
 }
 
-type Parser interface {
-	Parse([]byte, io.Writer) (*Meta, error)
-}
-
-func New() Parser {
-	return &parser{goldmark.New(
+func GetParser() *Parser {
+	return &Parser{goldmark.New(
 		goldmark.WithExtensions(
 			highlighting.NewHighlighting(
 				highlighting.WithStyle("monokai"),
@@ -43,7 +39,7 @@ func New() Parser {
 	)}
 }
 
-func (p *parser) Parse(source []byte, writer io.Writer) (*Meta, error) {
+func (p *Parser) Parse(source []byte, writer io.Writer) (*Meta, error) {
 	context := goldParser.NewContext()
 	if err := p.Convert(source, writer, goldParser.WithContext(context)); err != nil {
 		return nil, err

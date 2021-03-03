@@ -7,8 +7,6 @@ import (
 	"os"
 
 	"gopkg.in/yaml.v2"
-
-	"github.com/lexysoda/oghu/parser"
 )
 
 type Config struct {
@@ -17,7 +15,7 @@ type Config struct {
 	TemplateGlob string            `yaml:"TemplateGlob"`
 	Meta         map[string]string `yaml:"Meta"`
 	Tpl          *template.Template
-	Parser       parser.Parser
+	Parser       *Parser
 }
 
 func parseConfig(confPath string) (*Config, error) {
@@ -46,7 +44,7 @@ func Oghu() (string, error) {
 	if _, err := c.Tpl.ParseGlob(c.TemplateGlob); err != nil {
 		return "", err
 	}
-	c.Parser = parser.New()
+	c.Parser = GetParser()
 
 	s := NewSite(c)
 

@@ -5,8 +5,6 @@ import (
 	"html/template"
 	"path/filepath"
 	"time"
-
-	"github.com/lexysoda/oghu/parser"
 )
 
 type Entry struct {
@@ -18,7 +16,7 @@ type Entry struct {
 	Path     string
 }
 
-func ParseEntry(b []byte, path string, p parser.Parser) (*Entry, error) {
+func ParseEntry(b []byte, path string, p *Parser) (*Entry, error) {
 	var buf bytes.Buffer
 	meta, err := p.Parse(b, &buf)
 	if err != nil {

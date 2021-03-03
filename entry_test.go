@@ -6,8 +6,6 @@ import (
 	"reflect"
 	"testing"
 	"time"
-
-	"github.com/lexysoda/oghu/parser"
 )
 
 const (
@@ -38,7 +36,7 @@ func TestParseEntry(t *testing.T) {
 	if err != nil {
 		t.Errorf("Failed to read file: %w", err)
 	}
-	p := parser.New()
+	p := GetParser()
 	generated, err := ParseEntry(in, relPath, p)
 	if err != nil {
 		t.Errorf("Failed to parse: %w", err)
