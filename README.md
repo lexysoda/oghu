@@ -5,11 +5,10 @@ But it probably only took a bit longer than reading through the humongous codeba
 and maybe I learned something along the way :shrug:.
 
 ## usage
-`oghu` populates public
-`oghu new path [title]` creates a new file under `path`
+* `oghu` populates public
+* `oghu new path [title]` creates a new file under `path`
 
 ## todo
 * [ ] cleanup the rendering process, especially the passed template data
 * [ ] use `block` and define main template
-* [ ] cleanup the parser, make configurable
-* [ ] add command to auto create markdown file w/ needed boilerplate (i.e. the yaml header)
+* [ ] make parser configurable
