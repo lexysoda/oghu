@@ -1,0 +1,6 @@
+ContentDir: content
+PublicDir: public
+TemplateGlob: tpl/*
+Meta:
+  Title: This is Blog
+  Url: medium.blogspot.wordpress
