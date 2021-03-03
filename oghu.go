@@ -64,7 +64,7 @@ func New(path string, data map[string]interface{}) (string, error) {
 	if err != nil {
 		return "", fmt.Errorf("Failed to open %s: %w", path, err)
 	}
-	if err := template.Must(template.New("kek").Parse(` ---
+	if err := template.Must(template.New("kek").Parse(`---
 Title: {{ .Title }}
 Date: {{ .Date }}
 Tags:
