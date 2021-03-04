@@ -9,19 +9,19 @@ import (
 )
 
 const (
-	inputPath  = "fixtures/content/catA/subCatB/1.md"
+	inputPath  = "fixtures/entry/content/catA/subCatB/1.md"
 	relPath    = "catA/subCatB/1.md"
-	outputPath = "fixtures/public/catA/subCatB/this-is-title/index.html"
+	outputPath = "fixtures/entry/public/catA/subCatB/this-is-title/index.html"
 )
 
 func TestParseEntry(t *testing.T) {
 	d, err := time.Parse("02.01.2006", "30.12.1337")
 	if err != nil {
-		t.Errorf("Failed to parse date: %w", err)
+		t.Fatalf("Failed to parse date: %s", err)
 	}
 	contentBytes, err := os.ReadFile(outputPath)
 	if err != nil {
-		t.Errorf("Failed to read file: %w", err)
+		t.Fatalf("Failed to read file: %s", err)
 	}
 	expected := Entry{
 		Title:    "this is title",
@@ -34,12 +34,12 @@ func TestParseEntry(t *testing.T) {
 
 	in, err := os.ReadFile(inputPath)
 	if err != nil {
-		t.Errorf("Failed to read file: %w", err)
+		t.Fatalf("Failed to read file: %s", err)
 	}
 	p := GetParser()
 	generated, err := ParseEntry(in, relPath, p)
 	if err != nil {
-		t.Errorf("Failed to parse: %w", err)
+		t.Fatalf("Failed to parse: %s", err)
 	}
 	if !reflect.DeepEqual(*generated, expected) {
 		t.Errorf("Got: %+v\nExpected: %+v", *generated, expected)
